@@ -3,5 +3,6 @@
     "version": "0.0.0",
     "dependencies": {
         "gitbook-plugin-katex": "*",
+        "gitbook-plugin-yahei": "*",
     }
 }
