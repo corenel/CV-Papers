@@ -19,4 +19,11 @@ $$
 \dot x = Y(x) \phi
 $$
 
-考虑到有了这么多关于速度识别的先前的工作，想要再做出更为广泛的陈述是很困难的。但是可以看出有很多人都把关注点转向了研究有系统的理论支持的算法来估计物体速度，或是通过前馈控制思想来补偿物体速度。
+> where $$x(t)$$, $$\dot x(t)$$ denote the object’s position vector and object’s velocity vector, respectively, $$Y(x)$$ denotes a known regression matrix, and $$\phi$$ denotes an unknown, constant vector. 
+
+考虑到有了这么多关于速度识别的先前的工作，想要再做出更为广泛的陈述是很困难的。但是可以看出有很多人都把关注点转向了研究有系统的理论支持的算法来估计物体速度，或是通过前馈控制思想来补偿物体速度。例如，假设物体的运动学特征可以用如下表述：
+$$
+\dot x = Y(x) \phi
+$$
+
+其中，$$x(t)$$与$$\dot x(t)$$分别代表物体的位置向量与速度向量， $$Y(x)$$代表一个已知的回归矩阵，$$\phi$$代表一个未知的常数向量。
