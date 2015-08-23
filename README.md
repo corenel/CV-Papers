@@ -1,2 +1,2 @@
 # CV-Papers
-Translation of some CV papers.
+Translation and implementation of some CV papers.
