@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "yahei"
+        "yahei",
+        "katex"
     ],
     "pluginsConfig": {}
 }
