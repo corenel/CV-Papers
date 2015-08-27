@@ -36,3 +36,27 @@ $$
 > While the above control techniques provide different methods for compensating for unknown object kinematics, these methods do not seem to provide much help with regard to identifying the object’s velocity if not much is known about the motion of the object. That is, from a systems theory point of view, one must develop a method of asymptotically identifying a time-varying signal with as little information as possible. This problem is made even more difficult because the sensor being used to gather the information about the object is a camera, and as mentioned before, the use of a camera requires one to interpret the motion of a 3D object from 2D images. To attack this double-goaded problem, we fuse homography-based techniques with a Lyapunov synthesized estimator to asymptotically identify the object’s unknown velocity 1 . Similar to the stereo vision paradigm, the proposed approach uses different views of the object from a single camera to calculate 3D information from 2D images. The homography-based techniques are based on fixed camera work presented in [3] which relies on the camera-in-hand work presented in [14]. The continuous, Lyapunov-based estimation strategy has its roots in an example developed in [19] and the general framework developed in [26]. The only requirements on the object are that its velocity, acceleration, and jerk be bounded, and that a single geometric length between two feature points on the object be known a priori.
 
 虽然上述的控制方法提供了不同的方法来补偿未知物体的运动学模型，但是这些方法在不是很清楚物体运动模型的情况下，对于识别物体运动速度并没有太大的作用。也就是说，从系统论的角度来看，必须开发一种渐近方法以尽可能少的信息来确定时变信号。这个问题相较来说更为困难，因为用来收集有关对象的信息的传感器是一个照相机。正如前文所述，使用相机就需要从二维图像中解释一个3D对象的运动。为了解决这个问题，我们融合了基于单应性的技术以及李雅普诺夫设计方法。与立体视觉的模式相似，这种估计器利用单目相机对物体不同角度的二维图像，来计算三维信息。这种基于单应性的技术基于[3]中固定相机上的工作，而这工作又依赖于[14]中眼在手（camera-in-hand）上的工作。这种连续的基于李雅普诺夫的估计策略基于[19]中的一个例子以及[26]中的总体框架。这种方法对于物体的唯一要求是其速度、加速度以及加速度的导数是有界的，以及物体上两个特征点之间的几何距离是已知的。
+
+## 2 Geometric Model
+> To facilitate the subsequent object velocity identification problem, four target points located on an object denoted by $$O_i,\forall i=1,2,3,4 $$ are considered to be coplanar and not colinear. Based on this assumption, consider a fixed plane, denoted by $$\pi ^\*$$, that is defined by a reference image of the object. In addition, let $$\pi$$ represent the motion of the plane containing the object feature points (see Figure 1). To develop a relationship between the planes, an inertial coordinate system, denoted by $$I$$, is defined where the origin coincides with the center of a fixed camera. The 3D coordinates of the target points on $$\pi$$ and $$\pi ^\*$$ can be respectively expressed in terms of $$I$$
+
+> $$
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
+\overline  m_i^*=[x_i\ y_i\ z_i]^T
+$$
+
+> under the standard assumption that the distances from the
+origin of I to the target points remains positive (i.e., $$z_i (t),z^\* _i\gt \epsilon$$ where $$\epsilon$$ is an arbitrarily small positive constant).
+
+为了方便之后的物体速度识别问题，考虑物体上的4个特征点$$O_i,\forall i=1,2,3,4 $$是共面但是不共线的。在这个假设的基础上，考虑一个固定的平面$$\pi ^\*$$，这个平面由物体的一个参考图象所定义。另外，令$$\pi$$表示包含着物体特征点的平面的运动（见图1）。为了探究平面之间的关系，定义一个原点在固定相机中心的惯性坐标系$$I$$。平面$$\pi$$与$$\pi ^\*$$上的特征点的三维坐标相对于$$I$$可以表示如下：
+
+$$
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
+\overline  m_i^*=[x_i\ y_i\ z_i]^T
+$$
+
+根据基本假设，从原点到特征点之间的距离始终是正的（也就是说，对于任意小的正常数$$\epsilon$$，$$z_i (t),z^\* _i\gt \epsilon$$）。
+
+> Orthogonal coordinate systems $$F$$ and $$F^\*$$ are attached to $$\pi$$ and $$\pi ^\*$$ , respectively, where the origin of the coordinate systems coincides with the object (see Figure 1). To relate the coordinate systems, let $$R(t),R^\* \in SO(3)$$ denote the rotation between $$F$$ and $$I$$, and $$F^\*$$ and $$I$$, respectively, and let $$x_f(t),x_f^\* \in R^3$$ denote the respective translation vectors expressed in the coordinates of $$I$$. 
+
+定义与$$\pi$$和$$\pi ^\*$$相关联的正交坐标系$$F$$以及$$F^\*$$，其坐标原点与物体相一致（见图1）。
