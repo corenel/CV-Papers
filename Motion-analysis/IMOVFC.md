@@ -41,7 +41,7 @@ $$
 > To facilitate the subsequent object velocity identification problem, four target points located on an object denoted by $$O_i,\forall i=1,2,3,4 $$ are considered to be coplanar and not colinear. Based on this assumption, consider a fixed plane, denoted by $$\pi ^*$$, that is defined by a reference image of the object. In addition, let $$\pi$$ represent the motion of the plane containing the object feature points (see Figure 1). To develop a relationship between the planes, an inertial coordinate system, denoted by $$I$$, is defined where the origin coincides with the center of a fixed camera. The 3D coordinates of the target points on $$\pi$$ and $$\pi ^*$$ can be respectively expressed in terms of $$I$$
 
 > $$
-\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \
 \overline  m_i^*=[x_i\ y_i\ z_i]^T
 $$
 
