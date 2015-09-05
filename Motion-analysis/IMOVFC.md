@@ -76,3 +76,40 @@ $$
 \overline m_i = x_f + R_{s_i} \\
 \overline m_i^* = x_f^* + R_{s_i}^*
 $$
+
+> After solving (6) for $$s_i$$ and then substituting the resulting expression into (5), the following relationships can be obtained
+
+> $$
+\overline m_i = \overline x_f + \overlien R \overline m^*
+$$
+
+
+> where $$\overline R(t)\in SO(3)$$ and $$\overline x_f(t)\in R^3$$ are new rotational
+and translational variables, respectively, defined as follows
+
+> $$
+\overline R = R(R^*)^T \\
+\overline x_f = x_f - \overline R x^*_f
+$$
+
+> From (4), it is easy to see how the relationship in (7) can now be expressed as follows
+
+> $$
+\overline m_i = \left({\overline R + \frac{\overline x_f}{d^*}{n^*}^T}\right)\overline m_i^*
+$$
+
+> **Remark 1** The subsequent development requires that the constant rotation matrix $$R^*$$ be known. This is considered to be a mild assumption since the constant rotation matrix $$R^*$$ can be obtained a priori using various methods (e.g., a second camera, Euclidean measurements, etc.).
+
+## 3 Euclidean Reconstruction
+> The relationship given by (9) provides a means for formulating a translation and rotation error between $$F$$ and $$F^*$$ . Since the Euclidean position of $$F$$ and $$F^*$$ cannot be directly measured, a method for calculating the position and rotational error using pixel information is developed in this section (i.e., pixel information is the measurable quantity as opposed to \overline $$m_i(t)$$ and \overline $$m^*_i$$). To this end, the normalized 3D task-space coordinates of the points on $$\pi$$ and $$\pi^*$$ can be respectively expressed in terms of $$I$$ as $$m_i(t),m^*_i \in R^3$$ , as follows
+
+> $$
+m_i = \frac{\overline m_i}{z_i}=[\frac{x_i}{z_i},\frac{y_i}{z_i},1]^T \\
+m_i^* = \frac{\overline m_i^*}{z_i^*}=[\frac{x_i^*}{z_i^*},\frac{y_i^*}{z_i^*},1]^T
+$$
+
+> The rotation and translation between the normalized coordinates can now be related through a Euclidean homography, denoted by $$H(t) \in R^{3\times 3}$$ , as follows
+
+> $$
+m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{A(\overline{R}+\overline x_h(n^*)^T)A^{-1}}_H m^*_i
+$$
