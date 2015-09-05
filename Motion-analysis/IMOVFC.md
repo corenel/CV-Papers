@@ -41,7 +41,10 @@ $$
 > To facilitate the subsequent object velocity identification problem, four target points located on an object denoted by $$O_i,\forall i=1,2,3,4 $$ are considered to be coplanar and not colinear. Based on this assumption, consider a fixed plane, denoted by $$\pi ^*$$, that is defined by a reference image of the object. In addition, let $$\pi$$ represent the motion of the plane containing the object feature points (see Figure 1). To develop a relationship between the planes, an inertial coordinate system, denoted by $$I$$, is defined where the origin coincides with the center of a fixed camera. The 3D coordinates of the target points on $$\pi$$ and $$\pi ^*$$ can be respectively expressed in terms of $$I$$
 
 > $$
-\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T
+$$
+
+> $$
 \overline  m_i^*=[x_i\ y_i\ z_i]^T
 $$
 
@@ -51,7 +54,10 @@ origin of I to the target points remains positive (i.e., $$z_i (t),z^* _i\gt \ep
 为了方便之后的物体速度识别问题，考虑物体上的4个特征点$$O_i,\forall i=1,2,3,4 $$是共面但是不共线的。在这个假设的基础上，考虑一个固定的平面$$\pi ^*$$，这个平面由物体的一个参考图象所定义。另外，令$$\pi$$表示包含着物体特征点的平面的运动（见图1）。为了探究平面之间的关系，定义一个原点在固定相机中心的惯性坐标系$$I$$。平面$$\pi$$与$$\pi ^*$$上的特征点的三维坐标相对于$$I$$可以表示如下：
 
 $$
-\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T
+$$
+
+$$
 \overline  m_i^*=[x_i\ y_i\ z_i]^T
 $$
 
@@ -73,6 +79,9 @@ $$
 > From the geometry between the coordinate frames depicted in Figure 1, the following relationships can be developed
 
 > $$
-\overline m_i = x_f + R_{s_i} \
+\overline m_i = x_f + R_{s_i}
+$$
+
+> $$
 \overline m_i^* = x_f^* + R_{s_i}^*
 $$
