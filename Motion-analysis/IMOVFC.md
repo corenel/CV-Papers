@@ -59,4 +59,20 @@ $$
 
 > Orthogonal coordinate systems $$F$$ and $$F^\*$$ are attached to $$\pi$$ and $$\pi ^\*$$ , respectively, where the origin of the coordinate systems coincides with the object (see Figure 1). To relate the coordinate systems, let $$R(t),R^\* \in SO(3)$$ denote the rotation between $$F$$ and $$I$$, and $$F^\*$$ and $$I$$, respectively, and let $$x_f(t),x_f^\* \in R^3$$ denote the respective translation vectors expressed in the coordinates of $$I$$. 
 
-定义与$$\pi$$和$$\pi ^\*$$相关联的正交坐标系$$F$$以及$$F^\*$$，其坐标原点与物体相一致（见图1）。
+定义与$$\pi$$和$$\pi ^\*$$相关联的正交坐标系$$F$$以及$$F^\*$$，其坐标原点与物体相一致（见图1）。定义
+
+> As also illustrated in Figure 1, $$n^\* \in R^3$$ denotes the constant normal to the plane $$\pi ^\*$$ expressed in the coordinates of $$I$$, $$s_i \in R^3$$ denotes the constant coordinates of the target points located on the object reference frame, and the constant distance $$d^\* \in R
+$$ from $$I$$ to $$F^\*$$ along the unit normal is given by
+
+> $$
+d^\* ={n^\*}^T \overline m_i^\*
+$$
+
+> The subsequent development is based on the assumption that the constant coordinates of one target point s i is known. For simplicity and without loss of generality, we assume that the coordinate s 1 is known (i.e., the subsequent development requires a single geometric length between two feature points on the object be known a priori).
+
+> From the geometry between the coordinate frames depicted in Figure 1, the following relationships can be developed
+
+> $$
+\overline m_i = x_f + R_{s_i} \\
+\overline m_i^\* = x_f^\* + R_{s_i}^\*
+$$
