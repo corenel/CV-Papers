@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "yahei"
+        "yahei",
+        "mathjax"
     ],
     "pluginsConfig": {}
 }
