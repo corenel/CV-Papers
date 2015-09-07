@@ -80,7 +80,7 @@ $$
 > After solving (6) for $$s_i$$ and then substituting the resulting expression into (5), the following relationships can be obtained
 
 > $$
-\overline m_i = \overline x_f + \overlien R \overline m^*
+\overline m_i = \overline x_f + \overline R \overline m^*
 $$
 
 
@@ -111,5 +111,75 @@ $$
 > The rotation and translation between the normalized coordinates can now be related through a Euclidean homography, denoted by $$H(t) \in R^{3\times 3}$$ , as follows
 
 > $$
-m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{A(\overline{R}+\overline x_h(n^*)^T)A^{-1}}_H m^*_i
+m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{(\overline{R}+\overline x_h(n^*)^T)}_H m^*_i
+$$
+
+> where $$\alpha _i \in R$$ denotes a depth ratio, and $$\overline x_h \in R^3$$ denotes a scaled translation vector that is defined as follows
+
+> $$
+\overline x_h = \frac{\overline x_f}{d^*}
+$$
+
+> In addition to having a task-space coordinate as described previously, each target point $$O_i$$ , $$O^*_i$$ will also have a projected pixel coordinate expressed in terms of $$I$$, denoted by $$u_i(t), v_i(t), u^*_i, v^*_i \in R$$, that is respectively defined as an element of $$p_i(t),p^*)i \in R^3$$ , as follows
+
+> $$
+p_i = [u_i, v_i, 1] ^ T \\
+p^*_i=[u^*_i\ v^*_i\ 1]^T
+$$
+
+> The projected pixel coordinates of the target points are related to the normalized task-space coordinates by the following pin-hole lens models [6]
+
+> $$
+p_i=Am_i \\
+p_i^*=Am_i^*
+$$
+
+> where $A\in R^{3\times 3}$ is a known, constant, and invertible intrinsic camera calibration matrix. After substituting (15) into (12), the following relationship can be developed
+
+> $$
+p_i = \alpha _i \underbrace{AHA^{-1}}_G p^*_i
+$$
+
+> where $$G(t) = [g_{ij}(t)] \forall i,j = 1,2,3 \in R^{3×3}$$ denotes a projective homography.After normalizing $$G(t)$$ by dividing through by the element $$g_{33}(t)$$, which is assumed to be nonzero without loss of generality, the projective relationship in (16) can be expressed as follows
+
+> $$
+p_i = \alpha _i g_{33} G_n p_i^*
+$$
+
+> where $$G_n(t) \in R^{3×3}$$ denotes the normalized projective homography. From (17), a set of 12 linear equations given by the 4 target point pairs ($$p^*_i ,p_i(t)$$) with 3 equations per target pair can be used to determine $$G_n(t)$$ and $$\alpha _i(t) g_{33}(t)$$. Based on the fact that the intrinsic calibration matrix $$A$$ is assumed to be known, (16) and (17) can be used to determine the product $$g_{33}(t) H(t)$$. By utilizing various techniques (e.g., see [7, 27]), the the product $$g_{33}(t) H(t)$$ can be decomposed into rotational and translational components as in (12). Specifically, the scale factor $$g_{33}(t)$$, the rotation matrix $$\overline R(t)$$, the unit normal vector $$n^*$$ , and the scaled translation vector denoted by $$\overline x_h (t)$$ can all be computed from the decomposition of the product $$g_{33}(t) H(t)$$. Since the product $$\alpha _i(t) g_{33}(t)$$ can be computed from (17), and $$g_{33}(t)$$ can be determined through the decomposition of the product $$g_{33}(t) H(t)$$, the depth ratio $$\alpha _i(t)$$ can be also be computed. Based on the assumption that $$R^*$$ is known and the fact that $$\overline R(t)$$ can be computed from the homography decomposition, (8) can be used to compute $$R(t)$$. Hence, $$R(t), \overline R(t), \overline x_h(t), n^*$$ , and the depth ratio $$\alpha _i(t)$$ are all known signals that can used in the subsequent estimator design.
+
+## 4 Object Kinematics
+> Based on information obtained from the Euclidean reconstruction, the object kinematics are developed in this section. To develop the translation kinematics for the object, $$e_v(t) \in R^3$$ is defined to quantify the translation of $$F$$ with respect to the fixed coordinate system $$F^*$$ as follows
+
+> $$
+e_v = p_e - p_e^*
+$$
+
+> In (18), $$p_e(t) \in R^3$$ denotes the following extended image coordinates [14] of an image point 3 on $$\pi$$ in terms of the inertial coordinate system $$I$$
+
+> $$
+p_e = [u_1, v_1, ln(z_1)]^T
+$$
+
+> where $$ln(\cdot )$$ denotes the natural logarithm, and $$p^*_e \in R^3$$  denotes the following extended image coordinates of the corresponding image point on $$\pi ^*$$ in terms of $$I$$
+
+> $$
+p_e^* = [u_1^*, v_1^*, ln(z_1^*)]^T
+$$
+
+> The first two elements of $$e_v (t)$$ are directly measured from the images. By exploiting standard properties of the natural logarithm, it is clear that the third element of $$e_v (t)$$ is equivalent to $$ln(\alpha _1)$$; hence, $$e_v (t)$$ is a known signal since $$\alpha _1 (t)$$ is computed during the Euclidean reconstruction. After taking the time derivative of (18), the following translational kinematics can be obtained (details available upon request)
+
+> $$
+\dot e_v = \dot p_e = \frac{\alpha _1}{z^*_1} A_e L_v [v_e - R[s_1]_{\times} R^T \omega _e]
+$$
+
+> where $$v_e (t), \omega _e (t) \in R^3$$ denote the unknown linear and angular velocity of the object expressed in $$I$$, respectively. In (21), $$A_e \in R^{3\times 3}$$ is defined as follows
+
+> $$
+A_e = A - 
+\begin{bmatrix}
+0 & 0 & u_0 \\
+0 & 0 & v_0 \\
+0 & 0 & 0
+\end{bmatrix}
 $$
