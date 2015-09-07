@@ -134,7 +134,7 @@ p_i=Am_i \\
 p_i^*=Am_i^*
 $$
 
-> where $A\in R^{3\times 3}$ is a known, constant, and invertible intrinsic camera calibration matrix. After substituting (15) into (12), the following relationship can be developed
+> where $$A\in R^{3\times 3}$$ is a known, constant, and invertible intrinsic camera calibration matrix. After substituting (15) into (12), the following relationship can be developed
 
 > $$
 p_i = \alpha _i \underbrace{AHA^{-1}}_G p^*_i
@@ -189,8 +189,8 @@ $$
 > $$
 L_v = 
 \begin{bmatrix}
-1 & 0 & -\farc{x_1}{z_1} \\
-0 & 1 & -\farc{y_1}{z_1} \\
+1 & 0 & -\frac{x_1}{z_1} \\
+0 & 1 & -\frac{y_1}{z_1} \\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -230,7 +230,7 @@ $$
 > **Remark 3** As stated in [23], the angle axis representation in (24) is not unique, in the sense that a rotation of $$− \theta(t)$$ about $$−u(t)$$ is equal to a rotation of $$\theta (t)$$ about $$u(t)$$. A particular solution for $$\theta(t)$$ and $$u(t)$$ can be determined as follows [23]
 
 > $$
-\theat _p = cos^{-1} \left(\frac{1}{2}(tr(\overline R)-1)\right) \\
+\theta _p = cos^{-1} \left(\frac{1}{2}(tr(\overline R)-1)\right) \\
 [u_p]_{\times} = \frac{\overline R - \overline R ^T)}{2sin(\theta _p)}
 $$
 
@@ -243,7 +243,7 @@ $$
 > While (29) is confined to a smaller region than $$\theta (t)$$ in (25), it is not more restrictive in the sense that
 
 > $$
-u_p \theat _p = u \theta
+u_p \theta _p = u \theta
 $$
 
 > he constraint in (29) is consistent with the computation of $$[u(t)]_{\times}$$ in (28) since a clockwise rotation (i.e., $$−\pi \le \theta (t) le 0$$) is equivalent to a counterclockwise rotation (i.e., $$0 \le \theta (t) \le \pi$$) with the axis of rotation reversed. Hence, based on (30) and the functional structure of the object kinematics, the particular solutions $$\theta _p(t)$$ and $$u_p (t)$$ can be used in lieu of $$\theta (t)$$ and $$u(t)$$ without loss of generality and without confining $$\theta (t)$$ to a smaller region. Since, we do not distinguish between rotations that are off by multiples of $$2 \pi$$, all rotational possibilities are considered via the parameterization of (24) along with the computation of (28).
