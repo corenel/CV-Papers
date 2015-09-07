@@ -170,7 +170,7 @@ $$
 > The first two elements of $$e_v (t)$$ are directly measured from the images. By exploiting standard properties of the natural logarithm, it is clear that the third element of $$e_v (t)$$ is equivalent to $$ln(\alpha _1)$$; hence, $$e_v (t)$$ is a known signal since $$\alpha _1 (t)$$ is computed during the Euclidean reconstruction. After taking the time derivative of (18), the following translational kinematics can be obtained (details available upon request)
 
 > $$
-\dot e_v = \dot p_e = \frac{\alpha _1}{z^*_1} A_e L_v [v_e - R[s_1]_{\times} R^T \omega _e]
+\dot e_v = \dot p_e = \frac{\alpha _1}{z^*_1} A_e L_v \left[v_e - R[s_1]_{\times} R^T \omega _e \right]
 $$
 
 > where $$v_e (t), \omega _e (t) \in R^3$$ denote the unknown linear and angular velocity of the object expressed in $$I$$, respectively. In (21), $$A_e \in R^{3\times 3}$$ is defined as follows
@@ -183,3 +183,75 @@ A_e = A -
 0 & 0 & 0
 \end{bmatrix}
 $$
+
+> where $$u_0 , v_0 \in R$$ denote the pixel coordinates of the principal point (i.e., the image center that is defined as the frame buffer coordinates of the intersection of the optical axis with the image plane), and the auxiliary Jacobian-like matrix $$L_v (t) \in R^{3×3}$$is defined as
+
+> $$
+L_v = 
+\begin{bmatrix}
+1 & 0 & -\farc{x_1}{z_1} \\
+0 & 1 & -\farc{y_1}{z_1} \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+> To develop the rotation kinematics for the object, $$e_ \omega (t) \in R^3$$ is defined using the angle axis representation [23] to quantify the rotation of F with respect to the fixed coordinate system $$F^*$$ as follows
+
+> $$
+e_ \omega = u(t) \theta (t)
+$$
+
+> In (24), $$u(t) \in R^3 $$ represents a unit rotation axes, and $$\theta (t) \in R$$ denotes the rotation angle about u(t) that is assumed to be confined to the following region
+
+> $$
+-\pi \lt \theta (t) \lt \pi
+$$
+
+> After taking the time derivative of (24), the following expression can be obtained [4]
+
+> $$
+\dot e_\omega = L_\omega \omega _e
+$$
+
+> In (26), the Jacobian-like matrix $$L_ω (t) \in R^{3×3}$$ is defined as
+
+> $$
+L_\omega = I_3 - \frac{\theta}{2} [u]_{\times} + \left({1-\frac{sinc(\theta)}{sinc^2 \left({\frac{\theta}{2}}\right) }}\right) [u]_{\times}^2
+$$
+
+> where $$[u]_{\times}$$ denotes the $$3\times 3$$ skew-symmetric form of $$u(t)$$ and
+
+> $$
+sinc(\theta (t)) = \frac{sin\theta (t)}{\theta (t)}
+$$
+
+> **Remark 2** The structure of (18)-(20) is motivated by the fact that developing the object kinematics using partial pixel information clarifies the influence of the camera intrinsic calibration matrix. By observing the influence of the intrinsic calibration parameters, future efforts might be directed at developing an observer strategy that is robust to these parameters. Since the intrinsic calibration matrix is assumed to be known in this paper, the observer strategy could also be developed based solely on reconstructed Euclidean information (e.g., $$\overline x_h (t), \overline R(t)$$).
+
+> **Remark 3** As stated in [23], the angle axis representation in (24) is not unique, in the sense that a rotation of $$− \theta(t)$$ about $$−u(t)$$ is equal to a rotation of $$\theta (t)$$ about $$u(t)$$. A particular solution for $$\theta(t)$$ and $$u(t)$$ can be determined as follows [23]
+
+> $$
+\theat _p = cos^{-1} \left(\frac{1}{2}(tr(\overline R)-1)\right) \\
+[u_p]_{\times} = \frac{\overline R - \overline R ^T)}{2sin(\theta _p)}
+$$
+
+> where the notation $$tr(\cdot)$$ denotes the trace of a matrix and $$[u_p]_{\times}$$ denotes the $$3\times 3$$ skew-symmetric form of $$u_p (t)$$. From (28), it is clear that
+
+> $$
+0 \le \theta _p(t) \le \pi
+$$
+
+> While (29) is confined to a smaller region than $$\theta (t)$$ in (25), it is not more restrictive in the sense that
+
+> $$
+u_p \theat _p = u \theta
+$$
+
+> he constraint in (29) is consistent with the computation of $$[u(t)]_{\times}$$ in (28) since a clockwise rotation (i.e., $$−\pi \le \theta (t) le 0$$) is equivalent to a counterclockwise rotation (i.e., $$0 \le \theta (t) \le \pi$$) with the axis of rotation reversed. Hence, based on (30) and the functional structure of the object kinematics, the particular solutions $$\theta _p(t)$$ and $$u_p (t)$$ can be used in lieu of $$\theta (t)$$ and $$u(t)$$ without loss of generality and without confining $$\theta (t)$$ to a smaller region. Since, we do not distinguish between rotations that are off by multiples of $$2 \pi$$, all rotational possibilities are considered via the parameterization of (24) along with the computation of (28).
+
+> **Remark 4** By exploiting the fact that $$u(t)$$ is a unit vector (i.e., $$||u||^2 = 1$$), the determinant of $$L_\omega (t)$$ can be derived as follows [16]
+
+> $$
+det L_\omega = \frac{1}{sinc^2 \left({\frac{\theta}{2}}\right)}
+$$
+
+> From (31), it is clear that $$L_\omega (t)$$ is only singular for multiples of $$2 \pi$$ (i.e., out of the assumed workspace).
