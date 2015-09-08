@@ -255,3 +255,90 @@ det L_\omega = \frac{1}{sinc^2 \left({\frac{\theta}{2}}\right)}
 $$
 
 > From (31), it is clear that $$L_\omega (t)$$ is only singular for multiples of $$2 \pi$$ (i.e., out of the assumed workspace).
+
+## 5 Velocity Identification
+
+### 5.1 Objective
+> The objective in this paper is to develop an observer that can be used to identify the translational and rotational velocity of an object expressed in $$I$$, denoted by $$v(t) = [v_e, \omega _e]^ T \in R^6$$ . To facilitate this objective, the object kinematics are expressed in the following compact form
+
+> $$
+\dot e = J v
+$$
+
+> where the Jacobian-like matrix $$J(t) \in R^{6\times 6}$$ is defined as
+
+> $$
+J = 
+\begin{bmatrix}
+\frac{\alpha _1}{z^*_1} A_e L_v && -\frac{\alpha _1}{z^*_1} A_e L_v R [s_1]_{\times} R^T \\
+0 & L_\omega
+\end{bmatrix}
+$$
+
+> where (21) and (26) were utilized, and $$ e(t) = [e^T_v, e^T_\omega ]^T \in R^6$$ . The subsequent development is based on the assumption that $$v(t)$$ of (32) is bounded and is second order differentiable with bounded derivatives. It is also assumed that if $$v(t)$$ is bounded, then the structure of (32) ensures that e(t) is bounded. From (32), (33), and the previous assumptions, it is clear that if $$e(t), v(t) \in L_\infty$$ , then
+from (32) we can see that $$\dot e(t) \in L_\infty$$ . We can differentiate (32) to show that $$\ddot e(t), \dddot e(t) \in L_\infty$$ ; hence, we can use the previous assumptions to show that
+
+> $$
+\sum ^6 _{i=1} ||\tilde e(t)||,||\dot {\tilde e}(t)||=0
+$$
+
+> where the observation error signal $$\tilde e(t) \in R^6$$ is defined as follows
+
+> $$
+\tilde e = e - \hat e
+$$
+
+> where $$ \hat e(t) \in R^6$$ denotes a subsequently designed estimate for $$e(t)$$. Once the result in (35) is obtained, additional development is provided that proves $$v(t)$$ can be exactly identified.
+
+### 5.2 Observer Development
+
+> To facilitate the following analysis, we define a filtered observation error, denoted by $$r(t) \in R^6$$ , as follows [22]
+
+> $$
+r = \dot {\tilde e} + \tilde e
+$$
+
+> After taking the time derivative of (37), the following expression can be obtained
+
+> $$
+\dot r = \ddot e - \ddot {\hat e} + \dot {\tilde e}
+$$
+
+> Based on subsequent analysis, $$\hat e(t)$$ is generated from the following differential expression
+
+> $$
+\dot {\hat e} = \hat \kappa
+$$
+
+> where $$\hat \kappa(t) \in R^6$$ is defined as follows 
+
+> $$
+\hat \kappa (t) = \int ^t _{t_0} (K+I_6)\tilde e (\tau) d\tau + \int ^t _{t_0} \rho sgn(\tilde e)d\tau + (K+I_6)\tilde e (t)
+$$
+
+> where $$K \in R^{6\times 6}$$ is a positive constant diagonal gain matrix, $$\rho \in R$$ is a positive constant, $$I_6 \in R^{6\times6}$$ denotes the $$6\times 6$$ identity matrix, $$t_0$ is the initial time, and the notation $$sgn(\tilde e)$$ denotes the standard signum function applied to each element of the vector $$\tilde e(t)$$. After taking the time derivative of (39) and substituting the resulting expression into (38), the following expression is obtained
+
+> $$
+\dot r = \ddot e - (K+I_6)r - \rho sgn(\tilde e) + \dot {\tilde e}
+$$
+
+> where the time derivative of (40) was utilized.
+
+### 5.3 Analysis
+
+> **Theorem 1** The observer defined in (39) and (40) can be used to obtain the objective given in (35) provided the elements of the observer gain $$\rho$$ is selected as follows
+
+> $$
+\rho \gt \beta 1 + \beta 2
+$$
+
+> where $$\beta 1$$ and $$\beta_2$$ are introduced in (34).
+
+> **Theorem 2** Given the results in (35), the object velocity expressed in $$I$$ (i.e., $$v(t) = [v_e^T, \omega _e^T]^ T \in R^6$$) can be exactly determined provided the result in (35) is obtained and a single geometric length between two feature points (i.e., $$s_1$$ ) is known.
+
+> **Remark 5** Given that $$R^*$$ is assumed to be a known rotation matrix, it is straightforward to prove that the object velocity expressed in $$F$$ can be determined from the object velocity expressed in $$I$$ .
+
+## 6 Conclusions
+
+> In this paper, we presented a continuous estimator strategy that can be utilized to asymptotically identify the six degree of freedom velocity of a moving object using a single fixed camera. The design of the estimator is based on a novel fusion of homography-based vision techniques and Lyapunov control design tools. The only requirements on the objects are that its velocity and its first two time derivatives be bounded, and that a single geometric length between two feature points on the object be known a priori. Future work will concentrate on experimental validation of the proposed estimators as well as its ramifications for other vision-based applications. Specifically, it seems that the proposed estimator might be able to be utilized in a typical
+camera-in-hand application that requires a robot manipulator end-effector to track a moving object. The applicability of the proposed approach for this type of object tracking applications is well motivated since the estimator does not require an explicit model for describing the movement of the object.
