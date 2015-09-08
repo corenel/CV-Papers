@@ -316,7 +316,7 @@ $$
 \hat \kappa (t) = \int ^t _{t_0} (K+I_6)\tilde e (\tau) d\tau + \int ^t _{t_0} \rho sgn(\tilde e)d\tau + (K+I_6)\tilde e (t)
 $$
 
-> where $$K \in R^{6\times 6}$$ is a positive constant diagonal gain matrix, $$\rho \in R$$ is a positive constant, $$I_6 \in R^{6\times6}$$ denotes the $$6\times 6$$ identity matrix, $$t_0$ is the initial time, and the notation $$sgn(\tilde e)$$ denotes the standard signum function applied to each element of the vector $$\tilde e(t)$$. After taking the time derivative of (39) and substituting the resulting expression into (38), the following expression is obtained
+> where $$K \in R^{6\times 6}$$ is a positive constant diagonal gain matrix, $$\rho \in R$$ is a positive constant, $$I_6 \in R^{6\times6}$$ denotes the $$6\times 6$$ identity matrix, $$t_0$$ is the initial time, and the notation $$sgn(\tilde e)$$ denotes the standard signum function applied to each element of the vector $$\tilde e(t)$$. After taking the time derivative of (39) and substituting the resulting expression into (38), the following expression is obtained.
 
 > $$
 \dot r = \ddot e - (K+I_6)r - \rho sgn(\tilde e) + \dot {\tilde e}
