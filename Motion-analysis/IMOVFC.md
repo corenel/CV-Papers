@@ -143,17 +143,27 @@ $$
 **备注1**：之后的研究需要已知旋转矩阵$$R^*$$。这是一个比较弱的假设，因为$$R^*$$可以通过很多种方法来得到（比如说使用第二台相机，欧式测量等等）。
 
 ## 3 Euclidean Reconstruction
-> The relationship given by (9) provides a means for formulating a translation and rotation error between $$F$$ and $$F^*$$ . Since the Euclidean position of $$F$$ and $$F^*$$ cannot be directly measured, a method for calculating the position and rotational error using pixel information is developed in this section (i.e., pixel information is the measurable quantity as opposed to \overline $$m_i(t)$$ and \overline $$m^*_i$$). To this end, the normalized 3D task-space coordinates of the points on $$\pi$$ and $$\pi^*$$ can be respectively expressed in terms of $$I$$ as $$m_i(t),m^*_i \in R^3$$ , as follows
+> The relationship given by (9) provides a means for formulating a translation and rotation error between $$F$$ and $$F^*$$ . Since the Euclidean position of $$F$$ and $$F^*$$ cannot be directly measured, a method for calculating the position and rotational error using pixel information is developed in this section (i.e., pixel information is the measurable quantity as opposed to $$\overline m_i(t)$$ and $$\overline m^*_i$$). To this end, the normalized 3D task-space coordinates of the points on $$\pi$$ and $$\pi^*$$ can be respectively expressed in terms of $$I$$ as $$m_i(t),m^*_i \in R^3$$ , as follows
 
 > $$
 m_i = \frac{\overline m_i}{z_i}=[\frac{x_i}{z_i},\frac{y_i}{z_i},1]^T \\
 m_i^* = \frac{\overline m_i^*}{z_i^*}=[\frac{x_i^*}{z_i^*},\frac{y_i^*}{z_i^*},1]^T
 $$
 
+$$\eqref{9}$$中的关系式提供了一种能用来确定$$F$$与$$F^*$$中平移与旋转误差的方法。由于无法直接测量$$F$$和$$F^*$$的欧式位置信息，所以本节中提出了一种使用像素信息来计算位置以及旋转误差的方法（也就是说，相较于$$\overline m_i(t)$$和$$\overline m^*_i$$，像素信息是可测量的）。为此，$$\pi$$和$$\pi^*$$上的点的归一化坐标可以用$$m_i(t),m^*_i \in R^3$$ 表示为
+
+$$
+m_i = \frac{\overline m_i}{z_i}=[\frac{x_i}{z_i},\frac{y_i}{z_i},1]^T \tag{10} \label{10}
+$$
+
+$$
+m_i^* = \frac{\overline m_i^*}{z_i^*}=[\frac{x_i^*}{z_i^*},\frac{y_i^*}{z_i^*},1]^T \tag{11} \label{11}
+$$
+
 > The rotation and translation between the normalized coordinates can now be related through a Euclidean homography, denoted by $$H(t) \in R^{3\times 3}$$ , as follows
 
 > $$
-m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{(\overline{R}+\overline x_h(n^*)^T)}_H m^*_i
+m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{(\overline{R}+\overline x_h(n^*)^T)}_H m^*_i 
 $$
 
 > where $$\alpha _i \in R$$ denotes a depth ratio, and $$\overline x_h \in R^3$$ denotes a scaled translation vector that is defined as follows
@@ -162,11 +172,29 @@ $$
 \overline x_h = \frac{\overline x_f}{d^*}
 $$
 
-> In addition to having a task-space coordinate as described previously, each target point $$O_i$$ , $$O^*_i$$ will also have a projected pixel coordinate expressed in terms of $$I$$, denoted by $$u_i(t), v_i(t), u^*_i, v^*_i \in R$$, that is respectively defined as an element of $$p_i(t),p^*)i \in R^3$$ , as follows
+此时，归一化坐标之间的旋转和平移可以使用一个单应性矩阵来描述，记为$$H(t) \in R^{3\times 3}$$。
+
+$$
+m_i=\underbrace{\frac{z^*_i}{z^i}}_{\alpha _i}\underbrace{(\overline{R}+\overline x_h(n^*)^T)}_H m^*_i \tag{12} \label{12}
+$$
+
+其中$$\alpha _i \in R$$表示深度比率，$$\overline x_h \in R^3$$表示一个按比例缩放的平移向量。
+
+$$
+\overline x_h = \frac{\overline x_f}{d^*} \tag{13} \label{13}
+$$
+
+> In addition to having a task-space coordinate as described previously, each target point $$O_i$$ , $$O^*_i$$ will also have a projected pixel coordinate expressed in terms of $$I$$, denoted by $$u_i(t), v_i(t), u^*_i, v^*_i \in R$$, that is respectively defined as an element of $$p_i(t),p^*_i \in R^3$$ , as follows
 
 > $$
 p_i = [u_i, v_i, 1] ^ T \\
 p^*_i=[u^*_i\ v^*_i\ 1]^T
+$$
+
+除了入之前所述的那样，拥有任务平面的坐标之外，每个目标点$$O_i$$、$$O^*_i$$也有射影的像素坐标，记为$$u_i(t), v_i(t), u^*_i, v^*_i \in R$$，并被定义为$$p_i(t),p^*_i \in R^3$$中的元素表示如下
+
+$$
+p_i = [u_i, v_i, 1] ^ T ,\ p^*_i=[u^*_i\ v^*_i\ 1]^T \tag{14} \label{14}
 $$
 
 > The projected pixel coordinates of the target points are related to the normalized task-space coordinates by the following pin-hole lens models [6]
@@ -176,7 +204,15 @@ p_i=Am_i \\
 p_i^*=Am_i^*
 $$
 
-> where $$A\in R^{3\times 3}$$ is a known, constant, and invertible intrinsic camera calibration matrix. After substituting (15) into (12), the following relationship can be developed
+> where $$A\in R^{3\times 3}$$ is a known, constant, and invertible intrinsic camera calibration matrix. 
+
+通过针孔镜头的模型。射影的像素坐标与归一化的任务空间坐标可以关联起来：
+
+$$
+p_i=Am_i ,\ p_i^*=Am_i^* \tag{15} \label{15}
+$$
+
+> After substituting (15) into (12), the following relationship can be developed
 
 > $$
 p_i = \alpha _i \underbrace{AHA^{-1}}_G p^*_i
@@ -188,7 +224,21 @@ $$
 p_i = \alpha _i g_{33} G_n p_i^*
 $$
 
-> where $$G_n(t) \in R^{3×3}$$ denotes the normalized projective homography. From (17), a set of 12 linear equations given by the 4 target point pairs ($$p^*_i ,p_i(t)$$) with 3 equations per target pair can be used to determine $$G_n(t)$$ and $$\alpha _i(t) g_{33}(t)$$. Based on the fact that the intrinsic calibration matrix $$A$$ is assumed to be known, (16) and (17) can be used to determine the product $$g_{33}(t) H(t)$$. By utilizing various techniques (e.g., see [7, 27]), the the product $$g_{33}(t) H(t)$$ can be decomposed into rotational and translational components as in (12). Specifically, the scale factor $$g_{33}(t)$$, the rotation matrix $$\overline R(t)$$, the unit normal vector $$n^*$$ , and the scaled translation vector denoted by $$\overline x_h (t)$$ can all be computed from the decomposition of the product $$g_{33}(t) H(t)$$. Since the product $$\alpha _i(t) g_{33}(t)$$ can be computed from (17), and $$g_{33}(t)$$ can be determined through the decomposition of the product $$g_{33}(t) H(t)$$, the depth ratio $$\alpha _i(t)$$ can be also be computed. Based on the assumption that $$R^*$$ is known and the fact that $$\overline R(t)$$ can be computed from the homography decomposition, (8) can be used to compute $$R(t)$$. Hence, $$R(t), \overline R(t), \overline x_h(t), n^*$$ , and the depth ratio $$\alpha _i(t)$$ are all known signals that can used in the subsequent estimator design.
+> where $$G_n(t) \in R^{3×3}$$ denotes the normalized projective homography. From (17), a set of 12 linear equations given by the 4 target point pairs $$(p^*_i ,p_i(t))$$ with 3 equations per target pair can be used to determine $$G_n(t)$$ and $$\alpha _i(t) g_{33}(t)$$. Based on the fact that the intrinsic calibration matrix $$A$$ is assumed to be known, (16) and (17) can be used to determine the product $$g_{33}(t) H(t)$$. By utilizing various techniques (e.g., see [7, 27]), the the product $$g_{33}(t) H(t)$$ can be decomposed into rotational and translational components as in (12). Specifically, the scale factor $$g_{33}(t)$$, the rotation matrix $$\overline R(t)$$, the unit normal vector $$n^*$$ , and the scaled translation vector denoted by $$\overline x_h (t)$$ can all be computed from the decomposition of the product $$g_{33}(t) H(t)$$. Since the product $$\alpha _i(t) g_{33}(t)$$ can be computed from (17), and $$g_{33}(t)$$ can be determined through the decomposition of the product $$g_{33}(t) H(t)$$, the depth ratio $$\alpha _i(t)$$ can be also be computed. Based on the assumption that $$R^*$$ is known and the fact that $$\overline R(t)$$ can be computed from the homography decomposition, (8) can be used to compute $$R(t)$$. Hence, $$R(t), \overline R(t), \overline x_h(t), n^*$$ , and the depth ratio $$\alpha _i(t)$$ are all known signals that can used in the subsequent estimator design.
+
+将$$\eqref{15}$$代入$$\eqref{12}$$中，可得下式：
+
+$$
+p_i = \alpha _i \underbrace{AHA^{-1}}_G p^*_i \tag{16} \label{16}
+$$
+
+其中，$$G(t) = [g_{ij}(t)] \forall i,j = 1,2,3 \in R^{3×3}$$是一个投影的单应性矩阵。在使用$$g_{33}(t)$$（为了不失普遍性假设非零）分割$$G(t)$$使之正规化之后，射影关系可以表述如下
+
+$$
+p_i = \alpha _i g_{33} G_n p_i^* \tag{17} \label{17}
+$$
+
+其中，$$G_n(t) \in R^{3×3}$$代表了规范化的射影单应性矩阵。从$$\eqref{17}$$中可知，每个目标点配对$$(p^*_i ,p_i(t))$$可以提供3个方程，4个目标点配对总共12个线性方程，可以用来计算$$G_n(t)$$以及$$\alpha _i(t) g_{33}(t)$$。因为内在的标定矩阵$$A$$是已知的，所以$$\eqref{16}$$和$$\eqref{17}$$可以用来确定乘积$$g_{33}(t) H(t)$$。经过一些方法（例如见 [7, 27]），乘积$$g_{33}(t) H(t)$$可以分解成如$$\eqref{12}$$中所示的平移与旋转部分。事实上，比例因子$$g_{33}(t)$$、旋转矩阵$$\overline R(t)$$、单位法向量$$n^*$$以及比例缩放向量$$\overline x_h (t)$$都能通过乘积$$g_{33}(t) H(t)$$的分解求得。深度比率$$\alpha _i(t)$$也能求得。由于$$R^*$$已知，$$\overline R(t)$$又能通过单应性分解求得，那么就可以通过$$\eqref{8}$$来计算$$R(t)$$。因此，$$R(t), \overline R(t), \overline x_h(t)，以及深度比率$$\alpha _i(t)$$都成了已知的，可以在之后的估计器中使用。
 
 ## 4 Object Kinematics
 > Based on information obtained from the Euclidean reconstruction, the object kinematics are developed in this section. To develop the translation kinematics for the object, $$e_v(t) \in R^3$$ is defined to quantify the translation of $$F$$ with respect to the fixed coordinate system $$F^*$$ as follows
