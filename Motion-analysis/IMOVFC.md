@@ -248,7 +248,7 @@ $$
 e_v = p_e - p_e^*
 $$
 
-> In (18), $$p_e(t) \in R^3$$ denotes the following extended image coordinates [14] of an image point 3 on $$\pi$$ in terms of the inertial coordinate system $$I$$
+> In (18), $$p_e(t) \in R^3$$ denotes the following extended image coordinates [14] of an image point on $$\pi$$ in terms of the inertial coordinate system $$I$$
 
 > $$
 p_e = [u_1, v_1, ln(z_1)]^T
@@ -258,6 +258,24 @@ $$
 
 > $$
 p_e^* = [u_1^*, v_1^*, ln(z_1^*)]^T
+$$
+
+基于欧式重建所获得的信息，本节将讨论物体的运动学信息。为了讨论物体的平移运动，引入$$e_v(t) \in R^3$$来表示$$F$$相对于固定坐标系$$F^*$$的平移运动。
+
+$$
+e_v = p_e - p_e^* \tag{18} \label{18}
+$$
+
+在$$\eqref{18}$$中，$$p_e(t) \in R^3$$表示平面$$\pi$$上一点的拓展图像坐标[14]
+
+$$
+p_e = [u_1, v_1, ln(z_1)]^T \tag{19} \label{19}
+$$
+
+其中，$$ln(\cdot )$$表示取自然对数，$$p^*_e \in R^3$$表示平面$$\pi^*$$上对应点的拓展图像坐标
+
+$$
+p_e^* = [u_1^*, v_1^*, ln(z_1^*)]^T \tag{20} \label{20}
 $$
 
 > The first two elements of $$e_v (t)$$ are directly measured from the images. By exploiting standard properties of the natural logarithm, it is clear that the third element of $$e_v (t)$$ is equivalent to $$ln(\alpha _1)$$; hence, $$e_v (t)$$ is a known signal since $$\alpha _1 (t)$$ is computed during the Euclidean reconstruction. After taking the time derivative of (18), the following translational kinematics can be obtained (details available upon request)
@@ -277,7 +295,7 @@ A_e = A -
 \end{bmatrix}
 $$
 
-> where $$u_0 , v_0 \in R$$ denote the pixel coordinates of the principal point (i.e., the image center that is defined as the frame buffer coordinates of the intersection of the optical axis with the image plane), and the auxiliary Jacobian-like matrix $$L_v (t) \in R^{3×3}$$is defined as
+> where $$u_0 , v_0 \in R$$ denote the pixel coordinates of the principal point (i.e., the image center that is defined as the frame buffer coordinates of the intersection of the optical axis with the image plane), and the auxiliary Jacobian-like matrix $$L_v (t) \in R^{3×3}$$ is defined as
 
 > $$
 L_v = 
@@ -288,16 +306,56 @@ L_v =
 \end{bmatrix}
 $$
 
-> To develop the rotation kinematics for the object, $$e_ \omega (t) \in R^3$$ is defined using the angle axis representation [23] to quantify the rotation of F with respect to the fixed coordinate system $$F^*$$ as follows
+$$e_v (t)$$中的前两个元素可以直接从图像中获得。利用自然对数的基本属性，$$e_v (t)$$的第三个元素等价于$$ln(\alpha _1)$$。$$\alpha _1 (t)$$在上一节中可以算出，因此$$e_v (t)$$是一个已知的量。对$$\eqref{18}$$取微分后，平移运动信息可知如下：
+
+$$
+\dot e_v = \dot p_e = \frac{\alpha _1}{z^*_1} A_e L_v \left[v_e - R[s_1]_{\times} R^T \omega _e \right] \tag{21} \label{21}
+$$
+
+其中$$v_e (t), \omega _e (t) \in R^3$$表示物体在$$I$$坐标系下未知的线速度与角速度。$$A_e \in R^{3\times 3}$$可表示如下：
+
+$$
+A_e = A - 
+\begin{bmatrix}
+0 & 0 & u_0 \\
+0 & 0 & v_0 \\
+0 & 0 & 0
+\end{bmatrix} \tag{22} \label{22}
+$$
+
+其中，$$u_0 , v_0 \in R$$表示主点的像素坐标（图像中心，即光轴与图像平面的交点的帧缓冲坐标）。$$L_v (t) \in R^{3×3}$$表示辅助类雅科比矩阵：
+
+$$
+L_v = 
+\begin{bmatrix}
+1 & 0 & -\frac{x_1}{z_1} \\
+0 & 1 & -\frac{y_1}{z_1} \\
+0 & 0 & 1
+\end{bmatrix} \tag{23} \label{23}
+$$
+
+> To develop the rotation kinematics for the object, $$e_ \omega (t) \in R^3$$ is defined using the angle axis representation [23] to quantify the rotation of $$F$$ with respect to the fixed coordinate system $$F^*$$ as follows
 
 > $$
 e_ \omega = u(t) \theta (t)
 $$
 
-> In (24), $$u(t) \in R^3 $$ represents a unit rotation axes, and $$\theta (t) \in R$$ denotes the rotation angle about u(t) that is assumed to be confined to the following region
+> In (24), $$u(t) \in R^3 $$ represents a unit rotation axes, and $$\theta (t) \in R$$ denotes the rotation angle about $$u(t)$$ that is assumed to be confined to the following region
 
 > $$
 -\pi \lt \theta (t) \lt \pi
+$$
+
+为了研究物体的旋转运动，定义$$e_ \omega (t) \in R^3$$来量化$$F$$相对于固定坐标系$$F^*$$的旋转，并用角轴表示：
+
+$$
+e_ \omega = u(t) \theta (t) \tag{24} \label{24}
+$$
+
+在$$\eqref{24}$$中，$$u(t) \in R^3 $$表示一个单位旋转轴，$$\theta (t) \in R$$表示相对于$$u(t)$$所旋转过的角度，并且限制在下列区间内：
+
+$$
+-\pi \lt \theta (t) \lt \pi \tag{25} \label{25}
 $$
 
 > After taking the time derivative of (24), the following expression can be obtained [4]
@@ -315,6 +373,24 @@ $$
 > where $$[u]_{\times}$$ denotes the $$3\times 3$$ skew-symmetric form of $$u(t)$$ and
 
 > $$
+sinc(\theta (t)) = \frac{sin\theta (t)}{\theta (t)}
+$$
+
+$$\eqref{24}$$式对时间取微分，得到下式：
+
+$$
+\dot e_\omega = L_\omega \omega _e \tag{26} \label{26}
+$$
+
+在$$\eqref{26}$$中，类雅科比矩阵$$L_ω (t) \in R^{3×3}$$ is定义如下：
+
+$$
+L_\omega = I_3 - \frac{\theta}{2} [u]_{\times} + \left({1-\frac{sinc(\theta)}{sinc^2 \left({\frac{\theta}{2}}\right) }}\right) [u]_{\times}^2 \tag{27} \label{27}
+$$
+
+其中，$$[u]_{\times}$$表示$$u(t)$$的$$3\times 3$$反对称形式，且有
+
+$$
 sinc(\theta (t)) = \frac{sin\theta (t)}{\theta (t)}
 $$
 
