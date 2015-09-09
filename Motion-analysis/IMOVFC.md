@@ -24,16 +24,14 @@ $$
 考虑到有了这么多关于速度识别的先前的工作，想要再做出更为广泛的陈述是很困难的。但是可以看出有很多人都把关注点转向了研究有系统的理论支持的算法来估计物体速度，或是通过前馈控制思想来补偿物体速度。例如，假设物体的运动学特征可以用如下表述：
 
 $$
-\begin{equation}
-\dot x = Y(x) \phi
-\end{equation}
+\dot x = Y(x) \phi \tag{1} \label{1}
 $$
 
 其中，$$x(t)$$与$$\dot x(t)$$分别代表物体的位置向量与速度向量， $$Y(x)$$代表一个已知的回归矩阵，$$\phi$$代表一个未知的常数向量。
 
 > As illustrated in [11], the object model of (1) can be used to describe many types of object models (e.g., constant-velocity, and cyclic motions). If $$x(t)$$ is measureable, it is easy to imagine how adaptive control techniques [22] can be utilized to formulate an adaptive update law that could compensate for unknown effects represented by the parameter $$\phi$$ for a typical control problem. In addition, if $$x(t)$$ is persistently exciting [22], one might be able to also show that the unknown parameter $$\phi$$ could be identified asymptotically. In a similar manner, robust control strategies or learning control strategies could be used to compensate for unknown object kinematics under the standard assumptions for these types of controllers (e.g., see [17] and [18]).
 
-正如在[11]中提到的那样，(1)中的物体模型能够被用来描述许多运动（比如说匀速运动或者周期运动）。如果$$x(t)$$是可测的话，可以想见的是，自适应控制技术能够被用来制定一种自适应律，用以补偿在典型的控制问题中参量$$\phi$$带来的未知的影响。如果$$x(t)$$是持续激励，那么可以说未知参量$$\phi$$是可以被渐进地识别出来的。同样地，在[17]与[18]中可以看到，在这些类型的控制器的基本假设下，鲁棒控制策略与学习控制策略能够被用来补偿位置物体的运动学模型。
+正如在[11]中提到的那样，$$\eqref{1}$$中的物体模型能够被用来描述许多运动（比如说匀速运动或者周期运动）。如果$$x(t)$$是可测的话，可以想见的是，自适应控制技术能够被用来制定一种自适应律，用以补偿在典型的控制问题中参量$$\phi$$带来的未知的影响。如果$$x(t)$$是持续激励，那么可以说未知参量$$\phi$$是可以被渐进地识别出来的。同样地，在[17]与[18]中可以看到，在这些类型的控制器的基本假设下，鲁棒控制策略与学习控制策略能够被用来补偿位置物体的运动学模型。
 
 > While the above control techniques provide different methods for compensating for unknown object kinematics, these methods do not seem to provide much help with regard to identifying the object’s velocity if not much is known about the motion of the object. That is, from a systems theory point of view, one must develop a method of asymptotically identifying a time-varying signal with as little information as possible. This problem is made even more difficult because the sensor being used to gather the information about the object is a camera, and as mentioned before, the use of a camera requires one to interpret the motion of a 3D object from 2D images. To attack this double-goaded problem, we fuse homography-based techniques with a Lyapunov synthesized estimator to asymptotically identify the object’s unknown velocity 1 . Similar to the stereo vision paradigm, the proposed approach uses different views of the object from a single camera to calculate 3D information from 2D images. The homography-based techniques are based on fixed camera work presented in [3] which relies on the camera-in-hand work presented in [14]. The continuous, Lyapunov-based estimation strategy has its roots in an example developed in [19] and the general framework developed in [26]. The only requirements on the object are that its velocity, acceleration, and jerk be bounded, and that a single geometric length between two feature points on the object be known a priori.
 
@@ -56,10 +54,11 @@ origin of I to the target points remains positive (i.e., $$z_i (t),z^* _i\gt \ep
 为了方便之后的物体速度识别问题，考虑物体上的4个特征点$$O_i,\forall i=1,2,3,4 $$是共面但是不共线的。在这个假设的基础上，考虑一个固定的平面$$\pi ^*$$，这个平面由物体的一个参考图象所定义。另外，令$$\pi$$表示包含着物体特征点的平面的运动（见图1）。为了探究平面之间的关系，定义一个原点在固定相机中心的惯性坐标系$$I$$。平面$$\pi$$与$$\pi ^*$$上的特征点的三维坐标相对于$$I$$可以表示如下：
 
 $$
-\begin{equation}
-\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
-\overline  m_i^*=[x_i^* \ y_i^*\ z_i^*]^T
-\end{equation}
+\overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \tag{2}\label{2}
+$$
+
+$$
+\overline  m_i^*=[x_i^* \ y_i^*\ z_i^*]^T \tag{3}\label{3}
 $$
 
 根据基本假设，从原点到特征点之间的距离始终是正的（也就是说，对于任意小的正常数$$\epsilon$$，$$z_i (t),z^* _i\gt \epsilon$$）。
@@ -77,7 +76,7 @@ $$
 同样地，定义$$n^* \in R^3$$为$$I$$坐标系下$$\pi ^*$$的法向量，$$s_i \in R^3$$为$$F$$坐标系下各特征点的坐标，$$d^* \in R $$为单位法向量方向上$$I$$到$$F^*$$的距离
 
 $$
-d^* ={n^*}^T \overline m_i^*
+d^* ={n^*}^T \overline m_i^* \tag{4} \label{4}
 $$
 
 > The subsequent development is based on the assumption that the constant coordinates of one target point s i is known. For simplicity and without loss of generality, we assume that the coordinates 1 is known (i.e., the subsequent development requires a single geometric length between two feature points on the object be known a priori).
@@ -94,14 +93,17 @@ $$
 如 Figure 1 所示，可以得到如下关系：
 
 $$
-\overline m_i = x_f + R_{s_i} \\
-\overline m_i^* = x_f^* + R_{s_i}^*
+\overline m_i = x_f + R_{s_i} \tag{5} \label{5}
+$$
+
+$$
+\overline m_i^* = x_f^* + R_{s_i}^* \tag{6} \label{6}
 $$
 
 > After solving (6) for $$s_i$$ and then substituting the resulting expression into (5), the following relationships can be obtained
 
 > $$
-\overline m_i = \overline x_f + \overline R \overline m^*
+\overline m_i = \overline x_f + \overline R \overline m^*_i
 $$
 
 > where $$\overline R(t)\in SO(3)$$ and $$\overline x_f(t)\in R^3$$ are new rotational
@@ -115,14 +117,13 @@ $$
 联立消去$$s_i$$之后，可得下式：
 
 $$
-\overline m_i = \overline x_f + \overline R \overline m^*
+\overline m_i = \overline x_f + \overline R \overline m^*_i \tag{7} \label{7}
 $$
 
-其中，$$\overline R(t)\in SO(3)$$和$$\overline x_f(t)\in R^3$$是新的旋转与平移变量。
+其中，$$\overline R(t)\in SO(3)$$ 和 $$\overline x_f(t)\in R^3$$是新的旋转与平移变量。
 
 $$
-\overline R = R(R^*)^T \\
-\overline x_f = x_f - \overline R x^*_f
+\overline R = R(R^*)^T ,\  \overline x_f = x_f - \overline R x^*_f \tag{8} \label{8}
 $$
 
 > From (4), it is easy to see how the relationship in (7) can now be expressed as follows
@@ -131,7 +132,15 @@ $$
 \overline m_i = \left({\overline R + \frac{\overline x_f}{d^*}{n^*}^T}\right)\overline m_i^*
 $$
 
+从$$\eqref{4}$$中可以看出式$$\eqref{7}$$也可以表示为如下形式
+
+$$
+\overline m_i = \left({\overline R + \frac{\overline x_f}{d^*}{n^*}^T}\right)\overline m_i^* \tag{9} \label{9}
+$$
+
 > **Remark 1** The subsequent development requires that the constant rotation matrix $$R^*$$ be known. This is considered to be a mild assumption since the constant rotation matrix $$R^*$$ can be obtained a priori using various methods (e.g., a second camera, Euclidean measurements, etc.).
+
+**备注1**：之后的研究需要已知旋转矩阵$$R^*$$。这是一个比较弱的假设，因为$$R^*$$可以通过很多种方法来得到（比如说使用第二台相机，欧式测量等等）。
 
 ## 3 Euclidean Reconstruction
 > The relationship given by (9) provides a means for formulating a translation and rotation error between $$F$$ and $$F^*$$ . Since the Euclidean position of $$F$$ and $$F^*$$ cannot be directly measured, a method for calculating the position and rotational error using pixel information is developed in this section (i.e., pixel information is the measurable quantity as opposed to \overline $$m_i(t)$$ and \overline $$m^*_i$$). To this end, the normalized 3D task-space coordinates of the points on $$\pi$$ and $$\pi^*$$ can be respectively expressed in terms of $$I$$ as $$m_i(t),m^*_i \in R^3$$ , as follows
