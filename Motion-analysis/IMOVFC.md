@@ -45,7 +45,7 @@ $$
 
 > $$
 \overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
-\overline  m_i^*=[x_i\ y_i\ z_i]^T
+\overline  m_i^*=[x_i^*\ y_i^*\ z_i^*]^T
 $$
 
 > under the standard assumption that the distances from the
