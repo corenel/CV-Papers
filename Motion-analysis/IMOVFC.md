@@ -24,7 +24,9 @@ $$
 考虑到有了这么多关于速度识别的先前的工作，想要再做出更为广泛的陈述是很困难的。但是可以看出有很多人都把关注点转向了研究有系统的理论支持的算法来估计物体速度，或是通过前馈控制思想来补偿物体速度。例如，假设物体的运动学特征可以用如下表述：
 
 $$
+\begin{equation}
 \dot x = Y(x) \phi
+\end{equation}
 $$
 
 其中，$$x(t)$$与$$\dot x(t)$$分别代表物体的位置向量与速度向量， $$Y(x)$$代表一个已知的回归矩阵，$$\phi$$代表一个未知的常数向量。
@@ -54,28 +56,44 @@ origin of I to the target points remains positive (i.e., $$z_i (t),z^* _i\gt \ep
 为了方便之后的物体速度识别问题，考虑物体上的4个特征点$$O_i,\forall i=1,2,3,4 $$是共面但是不共线的。在这个假设的基础上，考虑一个固定的平面$$\pi ^*$$，这个平面由物体的一个参考图象所定义。另外，令$$\pi$$表示包含着物体特征点的平面的运动（见图1）。为了探究平面之间的关系，定义一个原点在固定相机中心的惯性坐标系$$I$$。平面$$\pi$$与$$\pi ^*$$上的特征点的三维坐标相对于$$I$$可以表示如下：
 
 $$
+\begin{equation}
 \overline m_i(t)=[x_i(t)\ y_i(t)\ z_i(t)]^T \\
-\overline  m_i^*=[x_i\ y_i\ z_i]^T
+\overline  m_i^*=[x_i^* \ y_i^*\ z_i^*]^T
+\end{equation}
 $$
 
 根据基本假设，从原点到特征点之间的距离始终是正的（也就是说，对于任意小的正常数$$\epsilon$$，$$z_i (t),z^* _i\gt \epsilon$$）。
 
 > Orthogonal coordinate systems $$F$$ and $$F^*$$ are attached to $$\pi$$ and $$\pi ^*$$ , respectively, where the origin of the coordinate systems coincides with the object (see Figure 1). To relate the coordinate systems, let $$R(t),R^* \in SO(3)$$ denote the rotation between $$F$$ and $$I$$, and $$F^*$$ and $$I$$, respectively, and let $$x_f(t),x_f^* \in R^3$$ denote the respective translation vectors expressed in the coordinates of $$I$$. 
 
-定义与$$\pi$$和$$\pi ^*$$相关联的正交坐标系$$F$$以及$$F^*$$，其坐标原点与物体相一致（见图1）。定义
+定义与$$\pi$$和$$\pi ^*$$相关联的正交坐标系$$F$$以及$$F^*$$，其坐标原点与物体相一致（见图1）。定义$$R(t),R^* \in SO(3)$$分别表示$$I$$到$$F$$以及$$I$$到$$F^*$$的旋转变换，$$x_f(t),x_f^* \in R^3$$则表示平移变换。
 
-> As also illustrated in Figure 1, $$n^* \in R^3$$ denotes the constant normal to the plane $$\pi ^*$$ expressed in the coordinates of $$I$$, $$s_i \in R^3$$ denotes the constant coordinates of the target points located on the object reference frame, and the constant distance $$d^* \in R
-$$ from $$I$$ to $$F^*$$ along the unit normal is given by
+> As also illustrated in Figure 1, $$n^* \in R^3$$ denotes the constant normal to the plane $$\pi ^*$$ expressed in the coordinates of $$I$$, $$s_i \in R^3$$ denotes the constant coordinates of the target points located on the object reference frame, and the constant distance $$d^* \in R $$ from $$I$$ to $$F^*$$ along the unit normal is given by
 
 > $$
 d^* ={n^*}^T \overline m_i^*
 $$
 
-> The subsequent development is based on the assumption that the constant coordinates of one target point s i is known. For simplicity and without loss of generality, we assume that the coordinate s 1 is known (i.e., the subsequent development requires a single geometric length between two feature points on the object be known a priori).
+同样地，定义$$n^* \in R^3$$为$$I$$坐标系下$$\pi ^*$$的法向量，$$s_i \in R^3$$为$$F$$坐标系下各特征点的坐标，$$d^* \in R $$为单位法向量方向上$$I$$到$$F^*$$的距离
+
+$$
+d^* ={n^*}^T \overline m_i^*
+$$
+
+> The subsequent development is based on the assumption that the constant coordinates of one target point s i is known. For simplicity and without loss of generality, we assume that the coordinates 1 is known (i.e., the subsequent development requires a single geometric length between two feature points on the object be known a priori).
+
+之后的研究是基于有一个特征点的坐标已知这样的假设上的。为了简洁又不失广泛性，我们假设$$O_1$$的坐标已知（也就是说，之后的研究需要已知两个特征点之间的几何距离）。
 
 > From the geometry between the coordinate frames depicted in Figure 1, the following relationships can be developed
 
 > $$
+\overline m_i = x_f + R_{s_i} \\
+\overline m_i^* = x_f^* + R_{s_i}^*
+$$
+
+如 Figure 1 所示，可以得到如下关系：
+
+$$
 \overline m_i = x_f + R_{s_i} \\
 \overline m_i^* = x_f^* + R_{s_i}^*
 $$
@@ -86,11 +104,23 @@ $$
 \overline m_i = \overline x_f + \overline R \overline m^*
 $$
 
-
 > where $$\overline R(t)\in SO(3)$$ and $$\overline x_f(t)\in R^3$$ are new rotational
 and translational variables, respectively, defined as follows
 
 > $$
+\overline R = R(R^*)^T \\
+\overline x_f = x_f - \overline R x^*_f
+$$
+
+联立消去$$s_i$$之后，可得下式：
+
+$$
+\overline m_i = \overline x_f + \overline R \overline m^*
+$$
+
+其中，$$\overline R(t)\in SO(3)$$和$$\overline x_f(t)\in R^3$$是新的旋转与平移变量。
+
+$$
 \overline R = R(R^*)^T \\
 \overline x_f = x_f - \overline R x^*_f
 $$
