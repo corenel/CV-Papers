@@ -238,9 +238,10 @@ $$
 p_i = \alpha _i g_{33} G_n p_i^* \tag{17} \label{17}
 $$
 
-其中，$$G_n(t) \in R^{3×3}$$代表了规范化的射影单应性矩阵。从$$\eqref{17}$$中可知，每个目标点配对$$(p^*_i ,p_i(t))$$可以提供3个方程，4个目标点配对总共12个线性方程，可以用来计算$$G_n(t)$$以及$$\alpha _i(t) g_{33}(t)$$。因为内在的标定矩阵$$A$$是已知的，所以$$\eqref{16}$$和$$\eqref{17}$$可以用来确定乘积$$g_{33}(t) H(t)$$。经过一些方法（例如见 [7, 27]），乘积$$g_{33}(t) H(t)$$可以分解成如$$\eqref{12}$$中所示的平移与旋转部分。事实上，比例因子$$g_{33}(t)$$、旋转矩阵$$\overline R(t)$$、单位法向量$$n^*$$以及比例缩放向量$$\overline x_h (t)$$都能通过乘积$$g_{33}(t) H(t)$$的分解求得。深度比率$$\alpha _i(t)$$也能求得。由于$$R^*$$已知，$$\overline R(t)$$又能通过单应性分解求得，那么就可以通过$$\eqref{8}$$来计算$$R(t)$$。因此，$$R(t), \overline R(t), \overline x_h(t)，以及深度比率$$\alpha _i(t)$$都成了已知的，可以在之后的估计器中使用。
+其中，$$G_n(t) \in R^{3×3}$$代表了规范化的射影单应性矩阵。从$$\eqref{17}$$中可知，每个目标点配对$$(p^*_i ,p_i(t))$$可以提供3个方程，4个目标点配对总共12个线性方程，可以用来计算$$G_n(t)$$以及$$\alpha _i(t) g_{33}(t)$$。因为内在的标定矩阵$$A$$是已知的，所以$$\eqref{16}$$和$$\eqref{17}$$可以用来确定乘积$$g_{33}(t) H(t)$$。经过一些方法（例如见 [7, 27]），乘积$$g_{33}(t) H(t)$$可以分解成如$$\eqref{12}$$中所示的平移与旋转部分。事实上，比例因子$$g_{33}(t)$$、旋转矩阵$$\overline R(t)$$、单位法向量$$n^*$$以及比例缩放向量$$\overline x_h (t)$$都能通过乘积$$g_{33}(t) H(t)$$的分解求得。深度比率$$\alpha _i(t)$$也能求得。由于$$R^*$$已知，$$\overline R(t)$$又能通过单应性分解求得，那么就可以通过$$\eqref{8}$$来计算$$R(t)$$。因此，$$R(t), \overline R(t), \overline x_h(t)$$，以及深度比率$$\alpha  _i(t)$$都成了已知的，可以在之后的估计器中使用。
 
 ## 4 Object Kinematics
+
 > Based on information obtained from the Euclidean reconstruction, the object kinematics are developed in this section. To develop the translation kinematics for the object, $$e_v(t) \in R^3$$ is defined to quantify the translation of $$F$$ with respect to the fixed coordinate system $$F^*$$ as follows
 
 > $$
